@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | EbookAura</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #111;
+      padding: 20px 30px;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #f75454;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 36px;
+    }
+
+    .contact-container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #f75454;
+    }
+
+    button {
+      padding: 14px;
+      background-color: #f75454;
+      border: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e04444;
+    }
+
+    footer {
+      background-color: #111;
+      color: white;
+      padding: 40px 20px 20px;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .footer-col {
+      flex: 1 1 250px;
+    }
+
+    .footer-logo {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .footer-logo span {
+      color: #f75454;
+    }
+
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      text-decoration: none;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 14px;
+      color: #aaa;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">Ebook<span>Aura</span></div>
+  </header>
+
+  <!-- Contact Us -->
+  <h1>📬 Contact Us</h1>
+  <div class="contact-container">
+    <form action="mosuruniranjan63@gmail.com" method="POST" enctype="text/plain">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="Name" placeholder="Enter your name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="Email" placeholder="Enter your email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="Message" rows="6" placeholder="What's on your mind?" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-logo">Ebook<span>Aura</span></div>
+        <p>Your all-in-one platform for exploring free PDF books, managing bookmarks, and more.</p>
+      </div>
+      <div class="footer-col footer-links">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="book.html">Search Books</a>
+        <a href="bookmark.html">Bookmarks</a>
+        <a href="helpcenter.html">Help Center</a>
+      </div>
+      <div class="footer-col footer-links">
+        <h4>Support</h4>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 EbookAura. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

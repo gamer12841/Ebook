@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Books | EbookSigma</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .search-container input {
+      padding: 15px 20px;
+      width: 500px;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: 0.3s ease;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .book-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .book-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .book-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .book-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      background: #ddd;
+    }
+
+    .book-info {
+      padding: 16px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .book-title {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: #000;
+    }
+
+    .book-author {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    .stars {
+      color: #f39c12;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      background-color: #e7f3ff;
+      color: #007bff;
+      font-size: 12px;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .meta div {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .bookmark-btn {
+      border-top: 1px solid #eee;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      color: #e74c3c;
+      background: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .bookmark-btn:hover {
+      background: #fceaea;
+    }
+
+    @media (max-width: 768px) {
+      .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .book-card img {
+        height: 200px;
+      }
+
+      .search-container input {
+        width: 90%;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .book-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📚 Explore Books</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search books...">
+  </div>
+
+  <div class="book-grid" id="bookGrid"></div>
+
+  <script>
+    const books = Array.from({ length: 12 }, (_, i) => ({
+      id: i + 1,
+      title: `Book Title ${i + 1}`,
+      image: `images/image.png`,  // DONT CHANGE THIS IMAGE CODE
+      author: 'Author Name',
+      rating: 5,
+      category: 'Fiction',
+      views: Math.floor(Math.random() * 1000),
+      comments: Math.floor(Math.random() * 200),
+      pages: `${Math.floor(Math.random() * 300 + 50)}p`,
+      size: `${Math.floor(Math.random() * 20 + 5)}MB`,
+      link: 'bookopen.html'
+    }));
+
+    const bookGrid = document.getElementById("bookGrid");
+
+    function getBookmarks() {
+      return JSON.parse(localStorage.getItem("bookmarks")) || [];
+    }
+
+    function isBookmarked(id) {
+      const bookmarks = getBookmarks();
+      return bookmarks.some(b => b.id === id);
+    }
+
+    function toggleBookmark(book) {
+      let bookmarks = getBookmarks();
+      if (isBookmarked(book.id)) {
+        bookmarks = bookmarks.filter(b => b.id !== book.id);
+      } else {
+        bookmarks.push(book);
+      }
+      localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+      renderBooks(document.getElementById("searchInput").value);
+    }
+
+    function renderBooks(filter = "") {
+      bookGrid.innerHTML = "";
+      books
+        .filter(book => book.title.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(book => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "book-card";
+
+          const bookLink = document.createElement("a");
+          bookLink.href = book.link;
+          bookLink.target = "_blank";
+          bookLink.className = "book-link";
+          bookLink.innerHTML = `<img src="${book.image}" alt="${book.title}" />`;
+
+          const info = document.createElement("div");
+          info.className = "book-info";
+          info.innerHTML = `
+            <div>
+              <div class="book-title">${book.title}</div>
+              <div class="book-author">by ${book.author}</div>
+              <div class="stars">★★★★★ (${book.rating})</div>
+              <div class="tag">${book.category}</div>
+              <div class="meta">
+                <div>👁 ${book.views}</div>
+                <div>💬 ${book.comments}</div>
+                <div>📄 ${book.pages}</div>
+                <div>💾 ${book.size}</div>
+              </div>
+            </div>
+            <div class="bookmark-btn">${isBookmarked(book.id) ? '✅ Bookmarked' : '🔖 Bookmark'}</div>
+          `;
+
+          const bookmarkBtn = info.querySelector(".bookmark-btn");
+          bookmarkBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            toggleBookmark(book);
+          });
+
+          wrapper.appendChild(bookLink);
+          wrapper.appendChild(info);
+          bookGrid.appendChild(wrapper);
+        });
+    }
+
+    renderBooks();
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      renderBooks(e.target.value);
+    });
+  </script>
+
+</body>
+</html>

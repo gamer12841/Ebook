@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 24px;
+      color: #111827;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    #message {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .link {
+      margin-top: 16px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Login</h1>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+   <a href="#"><button onclick="login()">Login</button></a>
+    <p id="message"></p>
+    <div class="link">Don't have an account? <a href="signup.html">Sign Up</a></div>
+  </div>
+
+  <!-- Firebase Setup -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDHHLLONsC0V6uJ86hjTFfTOJjLU9mMzag",
+      authDomain: "e-book-ba5e0.firebaseapp.com",
+      projectId: "e-book-ba5e0",
+      storageBucket: "e-book-ba5e0.firebasestorage.app",
+      messagingSenderId: "71587744942",
+      appId: "1:71587744942:web:10e527281611aaecaaf13f",
+      measurementId: "G-Y6VYSFVFKB"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("message");
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          msg.style.color = "green";
+          msg.textContent = "Login successful! Redirecting...";
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 1500);
+        })
+        .catch(error => {
+          msg.style.color = "red";
+          msg.textContent = "Invalid email or password.";
+        });
+    };
+  </script>
+</body>
+</html>
